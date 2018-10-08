@@ -23,7 +23,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 public class History implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,18 +32,17 @@ public class History implements Serializable {
     private Reader reader;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateBegin;
-    @Temporal(TemporalType.TIMESTAMP) 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateReturn;
 
     public History() {
-        
     }
 
-    public History(Book book, Reader reader, Date dateBegin, Date dateEnd) {
+    public History(Book book, Reader reader, Date dateBegin, Date dateReturn) {
         this.book = book;
         this.reader = reader;
         this.dateBegin = dateBegin;
-        this.dateReturn = dateEnd;
+        this.dateReturn = dateReturn;
     }
 
     public Long getId() {
@@ -79,22 +77,22 @@ public class History implements Serializable {
         this.dateBegin = dateBegin;
     }
 
-    public Date getDateEnd() {
+    public Date getDateReturn() {
         return dateReturn;
     }
 
-    public void setDateEnd(Date dateEnd) {
-        this.dateReturn = dateEnd;
+    public void setDateReturn(Date dateReturn) {
+        this.dateReturn = dateReturn;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 71 * hash + Objects.hashCode(this.id);
-        hash = 71 * hash + Objects.hashCode(this.book);
-        hash = 71 * hash + Objects.hashCode(this.reader);
-        hash = 71 * hash + Objects.hashCode(this.dateBegin);
-        hash = 71 * hash + Objects.hashCode(this.dateReturn);
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.id);
+        hash = 41 * hash + Objects.hashCode(this.book);
+        hash = 41 * hash + Objects.hashCode(this.reader);
+        hash = 41 * hash + Objects.hashCode(this.dateBegin);
+        hash = 41 * hash + Objects.hashCode(this.dateReturn);
         return hash;
     }
 
@@ -130,23 +128,13 @@ public class History implements Serializable {
 
     @Override
     public String toString() {
-        SimpleDateFormat sdm = new SimpleDateFormat ("yyyy.mm.dd");
-        if (dateReturn!= null) 
-        {
-            return "History{" + "id=" + id + ", book=" + book.getNameBook() + ", reader=" + reader.getName() +" "+ reader.getSurname()  + ", dateBegin=" + sdm.format(dateBegin) + ", dateEnd=" + sdm.format(dateReturn)  + '}';
-        }
-        else
-        {
-            return "History{" + "id=" + id + ", book=" + book.getNameBook() + ", reader=" + reader.getName() +" "+ reader.getSurname()  + ", dateBegin=" + sdm.format(dateBegin) +'}';
-
-        }
+        SimpleDateFormat sdm = new SimpleDateFormat("yyyy.mm.dd");
+        if(dateReturn !=null){
+        return "History{" + "id=" + id + ", book=" + book.getNameBook() + ", reader=" + reader.getName()+reader.getSurname() + ", dateBegin=" + sdm.format(dateBegin) + ", dateReturn=" + sdm.format(dateReturn) + '}';
     }
-    
-    
-    
-    
-    
-    
+    else {
+    return "History{" + "id=" + id + ", book=" + book.getNameBook() + ", reader=" + reader.getName()+reader.getSurname() + ", dateBegin=" + sdm.format(dateBegin)  + '}';
+}
 
-   
+    }
 }

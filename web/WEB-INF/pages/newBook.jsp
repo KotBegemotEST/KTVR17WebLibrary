@@ -1,7 +1,7 @@
 <%-- 
     Document   : newBook
-    Created on : Sep 26, 2018, 10:50:01 AM
-    Author     : Melnikov
+    Created on : Sep 26, 2018, 10:52:46 AM
+    Author     : pupil
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,20 +12,18 @@
         <title>Новая книга</title>
     </head>
     <body>
-        <h1>Добавляем в библиотеку новую книгу</h1>
-        <form action="addBook" method="POST" name="form1" id="_form1">
-             Название:<br>
-            <input type="text" name="nameBook"><br>
-             Автор:<br>
-            <input type="text" name="author"><br>
-             Год издания:<br>
-            <input type="text" name="yearPublished"><br>
-             ISBN:<br>
-            <input type="text" name="isbn"><br>
-            <br>
-            <input type="submit" value="Добавить">
-        </form><br>
-        
-        
+        <h1>Форма добавления новой книги</h1>
+        <Form action="addBook" method "POST" name ="form1" id="form1">
+              Наименование<br>
+            <input class="form-control" type="text" id="name" name="nameBook" placeholder="Наименование"  autofocus required ><br> 
+            Автор:<br>
+            <input  type="text" name="author" > <br> 
+            Год издания:<br>                  
+            <input  type="text"  name="yearPublished" placeholder="Год издания" required> <br> 
+            ISBN:<br>                
+            <input type="text" name="ISBN" placeholder="ISBN" required> <br> 
+
+            <input type="submit" name ="send" value="Добавить">				
+        </form><br>	
     </body>
 </html>

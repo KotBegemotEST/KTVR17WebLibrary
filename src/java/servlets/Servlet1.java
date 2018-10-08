@@ -5,17 +5,20 @@
  */
 package servlets;
 
+import static entity.History_.book;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import session.BookFacade;
 
 /**
  *
- * @author Melnikov
+ * @author pupil
  */
 @WebServlet(name = "Servlet1", urlPatterns = {"/page1","/page2"})
 public class Servlet1 extends HttpServlet {
@@ -31,21 +34,24 @@ public class Servlet1 extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+     
         response.setContentType("text/html;charset=UTF-8");
         
-        String textToPage = "";
         String path = request.getServletPath();
-        if("/page1".equals(path)){
-            textToPage = "Текст для вставки в страницу page1";
+        if ("/page1".equals(path)) {
+            String textToPage= "Текст для встравки в страницу page1";
             request.setAttribute("textToPage", textToPage);
             request.getRequestDispatcher("/WEB-INF/pages/page1.jsp").forward(request, response);
-        }else if("/page2".equals(path)){
-            textToPage = "Текст для вставки в страницу page2";
+        }
+        else if("/page2".equals(path)){
+              String textToPage= "Текст для встравки в страницу page2";
             request.setAttribute("textToPage", textToPage);
             request.getRequestDispatcher("/WEB-INF/pages/page2.jsp").forward(request, response);
+
         }
     }
-
+        
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -86,3 +92,4 @@ public class Servlet1 extends HttpServlet {
     }// </editor-fold>
 
 }
+    

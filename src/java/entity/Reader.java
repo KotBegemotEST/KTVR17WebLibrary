@@ -13,7 +13,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author Melnikov
+ * @author pupil
  */
 @Entity
 public class Reader {
@@ -22,27 +22,18 @@ public class Reader {
     private Long id;
     private String name;
     private String surname;
-    private String phone;
     private String city;
 
     public Reader() {
     }
 
-    public Reader(String name, String surname, String phone, String city) {
+    public Reader(String name, String surname, String city) {
         this.name = name;
         this.surname = surname;
-        this.phone = phone;
         this.city = city;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
+ 
     public Long getId() {
         return id;
     }
@@ -67,22 +58,21 @@ public class Reader {
         this.surname = surname;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getCity() {
+        return city;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.id);
-        hash = 23 * hash + Objects.hashCode(this.name);
-        hash = 23 * hash + Objects.hashCode(this.surname);
-        hash = 23 * hash + Objects.hashCode(this.phone);
-        hash = 23 * hash + Objects.hashCode(this.city);
+        hash = 47 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.name);
+        hash = 47 * hash + Objects.hashCode(this.surname);
+        hash = 47 * hash + Objects.hashCode(this.city);
         return hash;
     }
 
@@ -104,9 +94,6 @@ public class Reader {
         if (!Objects.equals(this.surname, other.surname)) {
             return false;
         }
-        if (!Objects.equals(this.phone, other.phone)) {
-            return false;
-        }
         if (!Objects.equals(this.city, other.city)) {
             return false;
         }
@@ -118,8 +105,8 @@ public class Reader {
 
     @Override
     public String toString() {
-        return "Reader{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", phone=" + phone + ", city=" + city + '}';
+        return "Reader{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", city=" + city + '}';
     }
-    
-    
+
+   
 }

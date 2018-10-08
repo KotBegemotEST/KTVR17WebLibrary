@@ -5,42 +5,48 @@
  */
 package entity;
 
+import static com.oracle.webservices.api.databinding.DatabindingModeFeature.ID;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 /**
  *
- * @author Melnikov
+ * @author pupil
  */
 @Entity
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nameBook;
-    private String author;
-    private int yearPublished;
-    private String isbn;
+     private Long id;
+    String nameBook;
+    String author;
+    String yearPublished;
+    String ISNB;
 
     public Book() {
     }
 
-    public Book(String nameBook, String author, int yearPublished, String isbn) {
+    public Book(String nameBook, String author, String yearPublished, String ISNB) {
         this.nameBook = nameBook;
         this.author = author;
-        this.yearPublished = yearPublished;
-        this.isbn = isbn;
+        this.yearPublished =  yearPublished;
+        this.ISNB = ISNB;
     }
 
-    public String getIsbn() {
-        return isbn;
+    public Long getId() {
+        return id;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Book(Long id) {
+        this.id = id;
     }
 
     public String getNameBook() {
@@ -59,21 +65,29 @@ public class Book {
         this.author = author;
     }
 
-    public int getYearPublished() {
+    public String getYearPublished() {
         return yearPublished;
     }
 
-    public void setYearPublished(int yearPublished) {
+    public void setYearPublished(String yearPublished) {
         this.yearPublished = yearPublished;
+    }
+
+    public String getISNB() {
+        return ISNB;
+    }
+
+    public void setISNB(String ISNB) {
+        this.ISNB = ISNB;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.nameBook);
-        hash = 89 * hash + Objects.hashCode(this.author);
-        hash = 89 * hash + this.yearPublished;
-        hash = 89 * hash + Objects.hashCode(this.isbn);
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.nameBook);
+        hash = 71 * hash + Objects.hashCode(this.author);
+        hash = 71 * hash + Objects.hashCode(this.yearPublished);
+        hash = 71 * hash + Objects.hashCode(this.ISNB);
         return hash;
     }
 
@@ -89,16 +103,16 @@ public class Book {
             return false;
         }
         final Book other = (Book) obj;
-        if (this.yearPublished != other.yearPublished) {
-            return false;
-        }
         if (!Objects.equals(this.nameBook, other.nameBook)) {
             return false;
         }
         if (!Objects.equals(this.author, other.author)) {
             return false;
         }
-        if (!Objects.equals(this.isbn, other.isbn)) {
+        if (!Objects.equals(this.yearPublished, other.yearPublished)) {
+            return false;
+        }
+        if (!Objects.equals(this.ISNB, other.ISNB)) {
             return false;
         }
         return true;
@@ -106,15 +120,9 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" + "nameBook=" + nameBook + ", author=" + author + ", yearPublished=" + yearPublished + ", isbn=" + isbn + '}';
+        return "Book{" + "nameBook=" + nameBook + ", author=" + author + ", yearPublished=" + yearPublished + ", ISNB=" + ISNB + '}';
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    
+    
     
 }

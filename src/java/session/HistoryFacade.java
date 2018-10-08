@@ -5,7 +5,8 @@
  */
 package session;
 
-import entity.Reader;
+import entity.History;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +16,7 @@ import javax.persistence.PersistenceContext;
  * @author pupil
  */
 @Stateless
-public class ReaderFacade extends AbstractFacade<Reader> {
+public class HistoryFacade extends AbstractFacade<History> {
 
     @PersistenceContext(unitName = "KTVR17WebLibraryPU")
     private EntityManager em;
@@ -25,8 +26,10 @@ public class ReaderFacade extends AbstractFacade<Reader> {
         return em;
     }
 
-    public ReaderFacade() {
-        super(Reader.class);
+    public HistoryFacade() {
+        super(History.class);
     }
-    
+    public List <History> findTakeBooks(){
+    return em.createQuery("SELECT h FROM History h WHERE h.dateReturn=NULL").getResultList();
+            }
 }

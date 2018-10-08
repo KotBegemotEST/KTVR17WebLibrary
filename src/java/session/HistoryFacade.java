@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author pupil
+ * @author Melnikov
  */
 @Stateless
 public class HistoryFacade extends AbstractFacade<History> {
@@ -29,7 +29,10 @@ public class HistoryFacade extends AbstractFacade<History> {
     public HistoryFacade() {
         super(History.class);
     }
-    public List <History> findTakeBooks(){
-    return em.createQuery("SELECT h FROM History h WHERE h.dateReturn=NULL").getResultList();
-            }
+    
+    public List<History> findTakeBooks(){
+        return em.createQuery("SELECT h FROM History h WHERE h.dateReturn=NULL")
+                .getResultList();
+    }
+    
 }

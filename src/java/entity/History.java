@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author pupil
+ * @author Melnikov
  */
 @Entity
 public class History implements Serializable {
@@ -87,12 +87,12 @@ public class History implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 41 * hash + Objects.hashCode(this.id);
-        hash = 41 * hash + Objects.hashCode(this.book);
-        hash = 41 * hash + Objects.hashCode(this.reader);
-        hash = 41 * hash + Objects.hashCode(this.dateBegin);
-        hash = 41 * hash + Objects.hashCode(this.dateReturn);
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.book);
+        hash = 97 * hash + Objects.hashCode(this.reader);
+        hash = 97 * hash + Objects.hashCode(this.dateBegin);
+        hash = 97 * hash + Objects.hashCode(this.dateReturn);
         return hash;
     }
 
@@ -128,13 +128,16 @@ public class History implements Serializable {
 
     @Override
     public String toString() {
-        SimpleDateFormat sdm = new SimpleDateFormat("yyyy.mm.dd");
-        if(dateReturn !=null){
-        return "History{" + "id=" + id + ", book=" + book.getNameBook() + ", reader=" + reader.getName()+reader.getSurname() + ", dateBegin=" + sdm.format(dateBegin) + ", dateReturn=" + sdm.format(dateReturn) + '}';
+        SimpleDateFormat sdm = new SimpleDateFormat("dd.mm.yyyy");
+        if(dateReturn != null){
+            return "History{" + "id=" + id + ", book=" + book.getNameBook() + ", reader=" + reader.getName()+" "+reader.getSurname() + ", dateBegin=" + sdm.format(dateBegin) + ", dateReturn=" + sdm.format(dateReturn) + '}';
+        }else{
+            return "History{" + "id=" + id + ", book=" + book.getNameBook() + ", reader=" + reader.getName()+" "+reader.getSurname() + ", dateBegin=" + sdm.format(dateBegin) + '}';
+        }
     }
-    else {
-    return "History{" + "id=" + id + ", book=" + book.getNameBook() + ", reader=" + reader.getName()+reader.getSurname() + ", dateBegin=" + sdm.format(dateBegin)  + '}';
-}
+    
+    
 
-    }
+    
+    
 }

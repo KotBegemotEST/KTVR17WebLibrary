@@ -1,3 +1,8 @@
+<%-- 
+    Document   : takeBooks.jsp
+    Created on : Oct 5, 2018, 10:38:13 AM
+    Author     : Melnikov
+--%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,13 +17,8 @@
         <form action="returnBook" method="POST">
             <ul>
                 <c:forEach var="history" items="${takeBooks}">
-                    <input type="hidden" value="${history.id}" name="returnBookId">
                     <li>Книга: ${history.book.nameBook} взята: ${history.reader.name} ${history.reader.surname}
-                        
-                            <button type="submit">Rerutn Book</button>
-                        
-                    </li>
-                    </input>
+                        <input type="hidden" value="${history.id}" name="returnBookId"><button type="submit">Вернуть книгу</button></li>
                 </c:forEach> 
             </ul>
         </form>

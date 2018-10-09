@@ -26,8 +26,20 @@ import session.ReaderFacade;
  *
  * @author Melnikov
  */
-@WebServlet(name = "Library", urlPatterns = {"/newBook","/addBook","/newReader","/addReader",
-    "/showBooks","/showReader","/library","/takeBook","/showTakeBook","/returnBook","/deleteBook"})
+@WebServlet(name = "Library", urlPatterns = {
+    "/newBook",
+    "/addBook",
+    "/newReader",
+    "/addReader",
+    "/showBooks",
+    "/showReader",
+    "/library",
+    "/takeBook",
+    "/showTakeBook",
+    "/returnBook",
+    "/deleteBook",
+    
+})
 public class Library extends HttpServlet {
     
 @EJB BookFacade bookFacade;
@@ -39,9 +51,12 @@ public class Library extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF8");
         String path = request.getServletPath();
-        if("/newBook".equals(path)){
+        if(null != path)
+            switch (path) {
+        case "/newBook":
             request.getRequestDispatcher("/WEB-INF/pages/newBook.jsp").forward(request, response);
-        }else if("/addBook".equals(path)){
+            break;
+        case "/addBook":{
             String nameBook = request.getParameter("nameBook");
             String author = request.getParameter("author");
             String yearPublished = request.getParameter("yearPublished");
@@ -50,9 +65,12 @@ public class Library extends HttpServlet {
             bookFacade.create(book);
             request.setAttribute("book", book);
             request.getRequestDispatcher("/page2.jsp").forward(request, response);
-        }else if("/newReader".equals(path)){
+                break;
+            }
+        case "/newReader":
             request.getRequestDispatcher("/WEB-INF/pages/newReader.jsp").forward(request, response);
-        }else if("/addReader".equals(path)){
+            break;
+        case "/addReader":{
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
             String phone = request.getParameter("phone");
@@ -61,23 +79,31 @@ public class Library extends HttpServlet {
             readerFacade.create(reader);
             request.setAttribute("reader", reader);
             request.getRequestDispatcher("/page2.jsp").forward(request, response);
-        }else if("/showBooks".equals(path)){
-            List<Book> listBooks = bookFacade.findAll();
+                break;
+            }
+        case "/showBooks":{
+            List<Book> listBooks = bookFacade.findActived(true);
             request.setAttribute("listBooks", listBooks);
             request.getRequestDispatcher("/listBooks.jsp").forward(request, response);
-        }else if("/showReader".equals(path)){
+                break;
+            }
+        case "/showReader":
             List<Reader> listReader = readerFacade.findAll();
             request.setAttribute("listReader", listReader);
             request.getRequestDispatcher("/listReader.jsp").forward(request, response);
-        }else if("/library".equals(path)){
-            request.setAttribute("listBooks", bookFacade.findAll());
+            break;
+        case "/library":
+            request.setAttribute("listBooks", bookFacade.findActived(true));
             request.setAttribute("listReader", readerFacade.findAll());
             request.getRequestDispatcher("/library.jsp").forward(request, response);
-        }else if("/showTakeBook".equals(path)){
+            break;
+        case "/showTakeBook":{
             List<History> takeBooks = historyFacade.findTakeBooks();
             request.setAttribute("takeBooks", takeBooks);
             request.getRequestDispatcher("/listTakeBooks.jsp").forward(request, response);
-        }else if("/takeBook".equals(path)){
+                break;
+            }
+        case "/takeBook":{
             String selectedBook = request.getParameter("selectedBook");
             String selectedReader = request.getParameter("selectedReader");
             Book book = bookFacade.find(new Long(selectedBook));
@@ -88,28 +114,43 @@ public class Library extends HttpServlet {
             List<History> takeBooks = historyFacade.findTakeBooks();
             request.setAttribute("takeBooks", takeBooks);
             request.getRequestDispatcher("/listTakeBooks.jsp").forward(request, response);
-        }
-        else if("/returnBook".equals(path)){
+                break;
+            }
+        case "/returnBook":{
             String returnBookId = request.getParameter("returnBookId");
-            History history = historyFacade.find(new Long (returnBookId));
+            History history = historyFacade.find(new Long(returnBookId));
             Calendar c = new GregorianCalendar();
             history.setDateReturn(c.getTime());
             historyFacade.edit(history);
             List<History> takeBooks = historyFacade.findTakeBooks();
             request.setAttribute("takeBooks", takeBooks);
             request.getRequestDispatcher("/listTakeBooks.jsp").forward(request, response);
-        }
-        else if("/deleteBook".equals(path)){
-            String id = request.getParameter("id");
-            Book book = bookFacade.find(id);
-            bookFacade.remove(book);
+                break;
+            }
+        case "/deleteBook":{
+            String deleteBookId = request.getParameter("deleteBookId");
+            Book book  = bookFacade.find(new Long (deleteBookId));
+            book.setActive(Boolean.FALSE);
+            bookFacade.edit(book);
             
-            List<Book> listBooks = bookFacade.findAll();
-            request.setAttribute("listBooks", listBooks);
+            List <Book> listBooks = bookFacade.findActived(true);
+            
+           
+            
+            List<History> histories = historyFacade.fineByBook(book);
+            for (History history : histories) {
+                historyFacade.remove(history);
+            }
+           
+            
+            
+            request.setAttribute("listBooks",listBooks);
             request.getRequestDispatcher("/listBooks.jsp").forward(request, response);
-
-            
-        }
+            }
+        default:
+            request.getRequestDispatcher("/page2.jsp").forward(request, response);
+            break;
+    }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

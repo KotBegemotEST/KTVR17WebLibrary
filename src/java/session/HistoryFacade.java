@@ -5,8 +5,10 @@
  */
 package session;
 
+import entity.Book;
 import entity.History;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,6 +19,9 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class HistoryFacade extends AbstractFacade<History> {
+
+    @EJB BookFacade bookFacade;
+    
 
     @PersistenceContext(unitName = "KTVR17WebLibraryPU")
     private EntityManager em;
@@ -34,5 +39,26 @@ public class HistoryFacade extends AbstractFacade<History> {
         return em.createQuery("SELECT h FROM History h WHERE h.dateReturn=NULL")
                 .getResultList();
     }
+    
+    public List<History> find(Book book){
+        return em.createQuery("SELECT h FROM History h WHERE h.book = :book")
+                .setParameter("book", book)
+                .getResultList();
+    }
+    
+    public void remove(String id) {
+        Book book = bookFacade.find(new Long(id));
+        List<History> histories =  this.find(book);
+        for(History h : histories){
+            this.remove(h);
+        }
+        bookFacade.remove(book);
+    }
+
+    public List<History> fineByBook(Book book) {
+      return em.createQuery("SELECT h FROM history h WHERE h.book = :book")
+              .setParameter("book", book)
+              .getResultList();
+    }//Выберет из базы все истории где есть эта книга
     
 }

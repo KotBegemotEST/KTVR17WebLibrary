@@ -6,6 +6,7 @@
 package entity;
 
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +24,9 @@ public class Book {
     private String nameBook;
     private String author;
     private int yearPublished;
+    @Column(unique = true)
     private String isbn;
+    private Boolean active;
 
     public Book() {
     }
@@ -33,6 +36,7 @@ public class Book {
         this.author = author;
         this.yearPublished = yearPublished;
         this.isbn = isbn;
+        this.active = true;
     }
 
     public String getIsbn() {
@@ -106,8 +110,10 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" + "nameBook=" + nameBook + ", author=" + author + ", yearPublished=" + yearPublished + ", isbn=" + isbn + '}';
+        return "Book{" + "id=" + id + ", nameBook=" + nameBook + ", author=" + author + ", yearPublished=" + yearPublished + ", isbn=" + isbn + ", active=" + active + '}';
     }
+
+
 
     public Long getId() {
         return id;
@@ -115,6 +121,14 @@ public class Book {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
     
 }
